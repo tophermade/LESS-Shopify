@@ -1,0 +1,90 @@
+<div id="page">
+	
+	<div id="breadcrumb">
+		<ul>
+			<li><a href="/">Home &raquo;</a></li>			
+			<li><strong>{{ product.title }}</strong></li>
+		</ul>
+	</div>
+
+
+	<section id="product" class="{{product.handle}}">
+		
+		<div id="product-images">
+			<ul>
+				{% for image in product.images %}
+				<li>
+					<a href="{{ image | product_img_url: 'large' }}">
+						<img src="{{ image | product_img_url: 'large'}}" alt="{{product.title}} image" />
+					</a>
+				</li>
+				{% endfor %}
+			</ul>
+		</div><!-- e: images -->	
+
+		<article id="product-info">
+			<form action="/cart/add" method="post">	
+				<h1>{{ product.title }}</h1>
+
+				<div class="cost">
+					<em>
+					{{ product.price_min | money }}
+					{% if product.price_varies %} 
+						- {{ product.price_max | money }}
+					{% endif %}
+					</em> 
+				</div>
+
+				<div class="product-description">
+					{{ product.description }}
+				</div><!-- e: description -->
+
+
+				<div class="product-options">
+					{% if product.available %}
+						{% if product.variants.size > 1 %}
+							<select id="variant-select" name="id" class="product-info-options">
+								{% for variant in product.variants %}
+									{% if variant.available == true %}
+										<option value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money }}</option>
+									{% endif %}
+								{% endfor %}
+							</select>
+						{% else %}
+							{% for variant in product.variants %}
+								{% if variant.available %}
+									<input type="hidden" name="id" value="{{ product.variants.first.id }}" />
+								{% endif %}
+							{% endfor %}
+						{% endif %}
+					{% else %}
+					<p class="error">
+						This product is currently out of stock. Check back soon!
+					</p><!-- e: no stock -->
+					{% endif %}
+				</div><!-- e: options -->			
+				
+
+				<div class="product-actions">
+					{% if product.available %}
+					<input type="submit" class="add-to-cart" value="Add to cart" />
+					{% endif %}				
+				</div><!-- e: actions -->
+
+			</form>
+		</article><!-- e: info -->
+
+		<aside id="product-share">
+			<strong>Share on...</strong>
+			<ul>
+				<li><a href="#" class="on-pinterest">Pinterest</a></li>
+				<li><a href="#" class="on-facebook">Facebook</a></li>
+				<li><a href="#" class="on-twitter">Twitter</a></li>
+			</ul>
+		</aside><!-- e: product sharing -->
+
+	</section><!-- e: product -->
+
+
+</div><!-- e: page -->
+

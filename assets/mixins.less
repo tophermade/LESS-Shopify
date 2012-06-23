@@ -1,0 +1,84 @@
+.clip{
+	-webkit-background-clip: padding-box; 
+	-moz-background-clip: padding; 
+	-o-background-clip: padding; 
+	background-clip: padding-box; 
+}
+
+.round(@radius: 5px) {
+	-webkit-border-radius: @radius;
+	-moz-border-radius: @radius;
+	-o-border-radius: @radius;
+	border-radius: @radius;
+}
+
+.scale(@scale: 1.5, @x: 0, @y: 0){
+	-webkit-transform: scale(@scale);
+	-webkit-transform-origin: @x @y;
+	-moz-transform: scale(@scale);
+	-moz-transform-origin: @x @y;
+	-o-transform: scale(@scale);
+	-o-transform-origin: @x @y;
+	-ms-transform: scale(@scale);
+	-ms-transform-origin: @x @y;
+	transform: scale(@scale);
+	transform-origin: @x @y;
+}
+
+.shadow(@depth: 0 2px 4px rgba(0,0,0,.3)){
+	-webkit-box-shadow: @depth;
+	-moz-box-shadow: @depth;
+	-o-box-shadow: @depth;
+	box-shadow: @depth;
+}
+
+.rotate(@deg: rotate(9deg)){	
+	-webkit-transform: @deg;
+	-moz-transform: @deg;
+	-ms-transform: @deg;
+	-o-transform: @deg;
+	transform: @deg;
+}
+
+.bgsize(@size: 100% 100%){
+	-webkit-background-size: @size; 
+	-moz-background-size: @size;
+	-o-background-size: @size;
+	background-size: @size;
+}
+
+.gradient(@start: #eee, @end: #777) {	
+	background: @start;
+	background-image: -moz-linear-gradient(top, @start, @end); 
+	background-image: -ms-linear-gradient(top, @start, @end); 
+	background-image: -o-linear-gradient(top, @start, @end);
+	background-image: -webkit-gradient(linear, left top, left bottom, from(@start), to(@end));
+	background-image: -webkit-linear-gradient(top, @start, @end);
+	background-image: linear-gradient(top, @start, @end);
+}
+
+.gradient-circle(@h: center, @v: center, @shape: circle, @size: contain, @start: #ddd, @finish: #333, @stop: 100%) {
+	background-color: @start;
+	background-image: -moz-radial-gradient(@h @v, @shape @size, @start, @end @stop);
+	background-image: -webkit-radial-gradient(@h @v, @shape @size, @start, @end @stop);
+	background-image: -o-radial-gradient(@h @v, @shape @size, @start, @end @stop);
+	background-image: -ms-radial-gradient(@h @v, @shape @size, @start, @end @stop);
+	background-image: radial-gradient(@h @v, @shape @size, @start, @end @stop);
+}
+
+.transition(@who: all, @length: .5s, @how: ease-out){
+	-webkit-transition: @who @length @how;
+	-moz-transition: @who @length @how;
+	-ms-transition: @who @length @how;
+	-o-transition: @who @length @how;
+	transition: @who @length @how;
+}
+
+.columns(@count: 2, @width: 200px, @gap: 20px){
+	-moz-column-count: @count;
+	-moz-column-gap: @gap;
+	-webkit-column-count: @count;
+	-webkit-column-gap: @gap;
+	column-count: @count;
+	column-gap: @gap;
+}

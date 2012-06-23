@@ -1,0 +1,66 @@
+
+{% paginate search.results by 12 %}
+<div id="page">
+	
+	<div id="breadcrumb">
+		<ul>
+			<li><a href="/">Home &raquo;</a></li>
+			<li><strong>Search Results</strong></li>
+		</ul>
+	</div>
+
+
+	<header class="page-head">
+		<h1>Search Results</h1>
+	</header><!-- e: page header -->
+
+
+	<section id="content">
+
+		{% if search.results_count > 0 %}
+		<ul class="collection search-results">
+			
+			{% for item in search.results %}
+			<li>
+				<a href="{{ item.url }}" class="thumb-link">
+					<img src="{{ item.featured_image | product_img_url: 'medium'}}" alt="" />
+				</a>
+				<div class="thumb-description">
+					<p>{{item.title}}</p>
+					<p>
+						<strong class="current-price">{{ item.price | money }}</strong>
+					</p>
+					<p>
+						<a href="{{ item.url }}" class="buy-link">More Info</a>
+					</p>
+				</div>
+			</li>
+			{% endfor %}
+
+		</ul><!-- e: products & collections -->
+
+		{% else %}
+		<p class="error">No Results found</p>
+
+
+		{% if search.results_count > 12 %}
+		<div id="pagination">
+			{{ paginate | default_pagination }}
+		</div>
+		{% endif %}
+
+		{% endif %}
+
+	</section><!-- e; content -->
+
+
+	{{ include 'sidebar' }}
+
+
+</div><!-- e: page -->
+
+{% endpaginate %}
+
+
+
+

@@ -1,0 +1,89 @@
+
+<script type="text/javascript">
+	function remove_item(id) {
+		document.getElementById('updates_'+id).value = 0;
+		document.getElementById('cartform').submit();
+	}
+</script>
+
+<div id="page">
+<form action="/cart" method="post" id="cartform">
+
+	<div id="breadcrumb">
+		<ul>
+			<li><a href="/">Home &raquo;</a></li>
+			<li><strong>Your Cart</strong></li>
+		</ul>
+	</div>
+
+	{% if cart.item_count == 0 %}
+	<header class="page-head">
+		<h1>Your Cart empty, <a href="/collections/all">Continue Shopping!</a></h1>	
+	</header><!-- e: page header -->
+	{% else %}
+
+	<header class="page-head">
+		<h1>Your Cart</h1>
+	</header><!-- e: page header -->
+
+
+	<section id="content" class="alt">
+		<h2 class="ctitle">Cart &amp; Item Details</h2>
+
+		<div class="checkout-col">
+
+
+			{% for item in cart.items %}
+			<div class="item">
+				<img src="{{item.product.featured_image | product_img_url: 'medium' }}" alt="{{item.title | escape }}" />
+
+				<h3><a href="{{item.product.url}}" title="View {{item.title | escape }}">{{ item.title | truncate: 30 }}</a></h3>
+				<ul>
+					<li><strong>Price:</strong> {{ item.price | money }}</li>
+					<li><strong>Count:</strong> <input type="text" size="2" name="updates[{{item.variant.id}}]" id="updates_{{item.variant.id}}" value="{{item.quantity}}"/></li>
+					<li><strong>Total Price:</strong> {{item.line_price | money }}</li>
+					<li><strong>Action:</strong> <a class="" title="remove {{item.title}} from your basket" href="#" onclick="remove_item({{ item.variant.id }}); return false;">Remove</a></li>
+				</ul>
+			</div>
+			{% endfor %}
+
+		</div><!--e: checkout col -->
+
+		<div class="checkout-col misc">
+			<div class="total-misc">
+				<dl>
+					<dt>Total:</dt>
+					<dd>{{ cart.total_price | money }}</dd>
+				</dl>
+
+				<p>Special Instructions?
+					<textarea name="note" id="note" rows="3" cols="60">{{ cart.note }}</textarea>
+				</p>
+
+				<p>
+					<input type="checkbox" name="attributes[agree]" />
+					<span>Check to confirm you've read and agree with our <a href="/pages/terms/">Terms &amp; Conditions</a></span>
+				</p>
+
+				<p>
+					<input id="cart_submit" type="submit" value="Place Order" name="checkout" />
+				</p>
+				<p>
+					 {{ content_for_additional_checkout_buttons | google_button_options: 'transparent' }}
+				</p>
+			</div>
+
+			<div class="shipping-misc">
+				{% assign article = pages.checkout %}
+				{{ article.content }}
+			</div>
+		</div>
+
+	</section><!-- e: content -->
+
+	{% endif %}
+
+</form>
+</div><!-- e: page -->
+
+

@@ -1,0 +1,42 @@
+<div id="page" class="{{page.handle}}">
+	
+	<div id="breadcrumb">
+		<ul>
+			<li><a href="/">Home &raquo;</a></li>
+			<li><strong>{{blog.title}}</strong></li>
+		</ul>
+	</div>
+
+
+	<header class="page-head">
+		<h1>{{blog.title}}</h1>
+	</header><!-- e: page header -->
+
+
+	<section id="content">
+		{% paginate blog.articles by 10 %}
+
+
+		{% for article in blog.articles %}
+		<article class="entry">
+			<h2><a href="{{article.url}}">{{ article.title }}</a></h2>
+			<span class="entry-date">{{ article.created_at | date: "%x"}}</span>
+			<p>{{ article.content | strip_html | truncate: 300 }} <a href="{{article.url}}">read more ...</a></p>
+		</article>
+		{% endfor %}
+
+
+		{% if blog.articles.results_count > 10 %}
+			<div id="pagination">
+				{{ paginate | default_pagination }}
+			</div>
+		{% endif %}
+
+		{% endpaginate %}
+	</section><!-- e: content -->
+
+
+	{{ include 'sidebar' }}
+
+
+</div><!-- e: page -->

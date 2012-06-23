@@ -1,0 +1,84 @@
+
+
+<div id="splash">
+	<div id="splash-ads">
+		<a href="#" class="splash-ad"></a>
+		<a href="#" class="splash-ad"></a>
+	</div>
+
+	<div id="slider">
+		<h1>Slider H1 Title</h1>
+		<ul id="panels">
+			<li><a href="#"><img src="img/temp.gif" alt="" /></a></li>
+			<li><a href="#"><img src="img/temp.gif" alt="" /></a></li>
+			<li><a href="#"><img src="img/temp.gif" alt="" /></a></li>
+			<li><a href="#"><img src="img/temp.gif" alt="" /></a></li>
+		</ul>
+
+		<ul id="panel-nav">
+			<li><a href="#" class="active"></a></li>
+			<li><a href="#"></a></li>
+			<li><a href="#"></a></li>
+			<li><a href="#"></a></li>
+		</ul>
+	</div>
+</div><!-- e: splash -->
+
+
+
+
+<div id="page">
+	
+
+	<section id="content">
+
+		<h2>Featured Products</h2>
+		<ul class="collection">
+
+			<!-- show 3/6/9 featured products -->
+			{% for product in collections.frontpage.products %}
+			<li>
+				<a href="{{ product.url }}" class="thumb-link">
+					<img src="{{ product.featured_image | product_img_url: 'medium' }}" />
+				</a>
+				<div class="thumb-description">
+					<h3>{{product.title | strip_html | truncate: 60 }}</h3>
+					<p>{{product.description | strip_html | truncate: 60 }}</p>
+					
+					<strong class="current-price">{{ product.price | money }}</strong>
+					
+					<p>
+						<a href="{{ product.url }}" class="buy-link">More Info</a>
+					</p>
+				</div>
+			</li>
+			{% endfor %}
+		</ul>
+
+		<h2>Popular Collections</h2>		
+		<ul class="collection has-collections">
+
+			<!-- show list of collections with collection image -->
+			{% if linklists.featured-collections.links.size > 0 %}
+			{% for link in linklists.featured-collections.links %}
+			<li class="alt">
+				<a href="{{link.url}}" class="thumb-link">
+					<img src="{{ link.object.products.first.featured_image | product_img_url: 'medium' }}" alt="{{ link.object.title | escape }}" />
+				</a>
+				<h3>{{link.title}} <a href="{{link.url}}">View &raquo;</a></h3>
+			</li>
+			{% endfor %}
+			{% endif %}
+
+		</ul><!-- e: products & collections -->
+
+	</section><!-- e; content -->
+
+
+	{% include 'sidebar' %}
+
+
+</div><!-- e: page -->
+
+
+</div><!-- e: page -->

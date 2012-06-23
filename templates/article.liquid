@@ -1,0 +1,82 @@
+<div id="page" class="{{page.handle}}">
+	
+	<div id="breadcrumb">
+		<ul>
+			<li><a href="/">Home &raquo;</a></li>
+			<li><strong>{{ article.title }}</strong></li>
+		</ul>
+	</div>
+
+
+	<header class="page-head">
+		<h1>{{ article.title }}</h1>
+	</header><!-- e: page header -->
+
+
+	<section id="content">
+
+		<article class="entry">
+			<p class="meta">
+				Posted by <span class="author">{{article.author}}</span> on  
+				<time datetime="{{ article.published_at | date: "%A, %B %d" }}">
+					{{ article.published_at | date: "%A, %B %d" }}
+				</time>
+			</p>
+			
+			{{ article.content }}
+
+
+			{% if blog.comments_enabled? %}
+				{% if article.comments_count > 0 %}
+					<aside id="comments">
+						<h1>Comments</h1>
+						<dl>
+							{% for comment in article.comments %}
+								<dt><span rel="author">{{comment.author}}</span> said on <time datetime="{{ article.published_at | date: "%Y-%m-%dT%H:%M:%S%Z" }}" pubdate>{{ comment.created_at | date: "%A, %B %d" }}</time></dt>
+								<dd>{{comment.content}}</dd>
+							{% endfor %}
+						</dl>
+					</aside>
+				{% endif %}
+				<div id="make-comment">
+					<h3>Add your comments</h3>
+					
+					{% form article %}
+					<p>
+						<label for="author">Name</label>
+						<input type="text" id="author" name="comment[author]" size="40" value="{{form.author}}" class="{% if form.errors contains 'author' %}error{% endif %}" />
+					</p>
+					<p>
+						<label for="email">Email</label>
+						<input type="text" id="email" name="comment[email]" size="40" value="{{form.email}}" class="{% if form.errors contains 'email' %}error{% endif %}" />
+					</p>
+					<p>
+						<label for="comment">Comment</label>
+						<textarea  id="comment" name="comment[body]" cols="5" rows="5" class="{% if form.errors contains 'body' %}error{% endif %}">{{form.body}}</textarea>
+					</p>
+
+					<p>
+						<input type="submit" value="Submit" id="submit" />
+					</p>
+					{% if form.posted_successfully? %}
+						{% if blog.moderated? %}
+							<p class="notice">Comment posted. Nice. Comments are moderated so it'll show up soon.</p>
+						{% else %}
+							<p class="notice">Comment posted. Success feels good doesn't it?</p>
+						{% endif %}
+					{% endif %}
+					{% if form.errors %}
+						<p class="error">Oops! You missed a field. Please correct and try again.</p>
+					{% endif %}
+					{% endform %}
+				</div>
+			{% endif %}
+		</article>
+
+	</section><!-- e: content -->
+
+
+	{{ include 'sidebar' }}
+
+
+</div><!-- e: page -->

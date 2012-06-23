@@ -1,0 +1,62 @@
+
+{% if collection.image %}
+<div class="page-image">
+	{{ collection.image }}
+</div>
+{% endif %}
+
+
+
+{% paginate collection.products by 12 %}
+<div id="page">
+	
+	<div id="breadcrumb">
+		<ul>
+			<li><a href="/">Home &raquo;</a></li>
+			<li><strong>{{collection.title}}</strong></li>
+		</ul>
+	</div>
+
+
+	<header class="page-head">
+		<h1>{{collection.title}}</h1>
+	</header><!-- e: page header -->
+
+
+	<section id="content">
+
+		<ul class="collection single-collection">
+			
+			{% for product in collection.products %}
+			<li>
+				<a href="{{ product.url }}" class="thumb-link">
+					<img src="{{ product.featured_image | product_img_url: 'medium' }}" />
+				</a>
+				<div class="thumb-description">
+					<h2>{{product.title | strip_html | truncate: 60 }}</h2>
+					<p>{{product.description | strip_html | truncate: 60 }}</p>
+					
+					<strong class="current-price">{{ product.price | money }}</strong>
+					
+					<p>
+						<a href="{{ product.url }}" class="buy-link">More Info</a>
+					</p>
+				</div>
+			</li>
+			{% endfor %}
+
+		</ul><!-- e: products & collections -->
+
+		<div id="pagination">
+			{{ paginate | default_pagination }}
+		</div>
+
+	</section><!-- e; content -->
+
+
+	{{ include 'sidebar' }}
+
+
+</div><!-- e: page -->
+
+{% endpaginate %}
