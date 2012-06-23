@@ -4,7 +4,7 @@ LESS-Shopify is a default, largely unstyled, theme for Shopify. It's purpose is 
 
 It's markup complete, supporting more or less the standard bits of most sites should need.
 
-# Who is it for
+## Who is it for
 Anyone who want's to hit the ground running with Shopify. The markup for most things you can/will need is there, cleanly written and easy to modify. What little CSS is in use exists soley to make the functionality of the theme easier to view & understand.
 
 ## Do I have to use LESS for this to be useful?
