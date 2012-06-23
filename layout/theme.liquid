@@ -16,13 +16,13 @@
 <title>
 	{% if template == "page" %}
 		{{page.title}} | 
-	{% elseif template == "blog" %}
+	{% else if template == "blog" %}
 		{{blog.title}} | 
-	{% elseif template == "collection" %}
+	{% else if template == "collection" %}
 		{{collection.title}} | 
-	{% elseif template == "product" %}
+	{% else if template == "product" %}
 		{{product.title}} | 
-	{% elseif template == "article" %}
+	{% else if template == "article" %}
 		{{article.title}} | 
 	{% endif %}
 	{{shop.name}}
