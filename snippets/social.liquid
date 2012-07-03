@@ -1,8 +1,9 @@
 		<div class="widget social">
-			{% if settings.facebook %}
+			{% if settings.facebook != '' %}
 			<a href="{{ settings.facebook }}" class="facebook">Like on Facebook</a>
 			{% endif %}
-			{% if settings.twitter %}
-				<a href="{{ settings.twitter }}" class="twitter">Follow on Twitter</a>
+			{% if settings.twitter != '' %}
+				<a href="http://twitter.com/{{ settings.twitter }}" class="twitter">Follow on Twitter</a>
 			{% endif %}
+
 		</div>

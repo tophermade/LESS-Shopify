@@ -1,8 +1,12 @@
 	<section id="sidebar">
 
+		{% if settings.promo-image %}
 		<div class="promo">
-			<a href="#"></a>
+			<a href="{{ settings.promo-link }}">
+				<img src="{{ settings.promo-image }}" alt="" />
+			</a>
 		</div>
+		{% endif %}
 
 		<div class="widget">
 			<h3>About our store</h3>
@@ -12,8 +16,6 @@
 			consequat. </p>
 		</div>
 
-		{{ include 'recently' }}
-
-		{{ include 'social' }}
+		{% include 'social' %}
 
 	</section><!-- e: sidebar -->

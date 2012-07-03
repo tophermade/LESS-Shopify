@@ -14,18 +14,17 @@
 <link rel="sitemap" type="application/xml" title="Sitemap" href="{{ 'sitemap.xml' | asset_url }}" />
 
 <title>
-	{% if template == "page" %}
-		{{page.title}} | 
-	{% else if template == "blog" %}
-		{{blog.title}} | 
-	{% else if template == "collection" %}
-		{{collection.title}} | 
-	{% else if template == "product" %}
-		{{product.title}} | 
-	{% else if template == "article" %}
-		{{article.title}} | 
-	{% endif %}
-	{{shop.name}}
+{% if template contains == 'index' %}
+	{{ shop.name }}
+{% elsif template contains == '404' %}
+	Page Not Found | {{ shop.name }}
+{% elsif template contains == 'product' %}
+	{{product.title}} | {{ shop.name }}
+{% elsif template contains == 'collection' %}
+	{{collection.title}} | {{ shop.name }}
+{% else %}
+	{{ page_title }} | {{ shop.name }}
+{% endif %}
 </title>
 
 <link rel="stylesheet" href="{{ 'style.css' | asset_url }}" media="screen" />
@@ -42,7 +41,7 @@
 {{ content_for_header }}
 
 </head>
-<body>
+<body class="{{ template | replace: '.', ' ' | truncatewords: 1, '' }}" id="{{ page_title | handle }}">
 <!-- begin markup -->
 
 
@@ -112,11 +111,11 @@
 
 	<div class="foot-col">
 		<h5>Socialize with us</h5>
-		{% if settings.facebook %}
-			<a href="{{ settings.facebook }}" class="facebook">Like on Facebook</a>
+		{% if settings.facebook != '' %}
+		<a href="{{ settings.facebook }}" class="facebook">Like on Facebook</a>
 		{% endif %}
-		{% if settings.twitter %}
-		<a href="{{ settings.twitter }}" class="twitter">Follow on Twitter</a>
+		{% if settings.twitter != '' %}
+			<a href="http://twitter.com/{{ settings.twitter }}" class="twitter">Follow on Twitter</a>
 		{% endif %}
 	</div>
 
